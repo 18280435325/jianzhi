@@ -9,15 +9,30 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\WeixinServices;
+
 
 
 class WxCheckController extends Controller
 {
     protected $request;
+    private $service;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request,WeixinServices $weixinServices)
     {
         $this->request = $request;
+        $this->service = $weixinServices;
+
+    }
+
+
+    public function index()
+    {
+        if(env('WX_IS_MEG')){  //第一次验证
+            $this->urlCheck();
+        }else{   //消息处理
+
+        }
 
     }
 
@@ -32,7 +47,7 @@ class WxCheckController extends Controller
             sort($param,SORT_STRING);
             $requestString = sha1(implode($param));
             if($requestString===$weiXinInfo['signature']){
-                return $weiXinInfo['echostr'];
+                echo $weiXinInfo['echostr'];
             }
             return false;
         }catch (\Exception $e){
@@ -41,13 +56,21 @@ class WxCheckController extends Controller
     }
 
 
+    /** 获取accessToken
+     * @throws \Exception
+     */
     public function getAccessToken()
     {
-        try{
-
-        }catch (\Exception $e){
-
-        }
+        echo $this->service->getAccToken();
 
     }
+
+
+
+
+    public function msgTypeSeparate()
+    {
+
+    }
+
 }

@@ -12,9 +12,10 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+//    return $app->version();
 });
 
 $app->group(['prefix'=>'wx'],function()use($app){
-   $app->get('check','WxCheckController@urlCheck');
+   $app->get('index','WxCheckController@index');
+   $app->get('gettoken','WxCheckController@getAccessToken');
 });
