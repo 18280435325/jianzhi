@@ -62,7 +62,6 @@ class WxCheckController extends Controller
     public function getAccessToken()
     {
         echo $this->service->getAccToken();
-
     }
 
 
@@ -70,6 +69,7 @@ class WxCheckController extends Controller
 
     public function msgTypeSeparate()
     {
+
 
     }
 
